@@ -1,0 +1,27 @@
+# Python virtual environments
+dbt_venv/
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# dbt artifacts
+target/
+dbt_packages/
+dbt_modules/
+logs/
+.user.yml
+
+# Credentials and secrets
+.env
+.env.*
+profiles.yml
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
