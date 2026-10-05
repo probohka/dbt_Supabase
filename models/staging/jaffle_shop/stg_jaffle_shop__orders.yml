@@ -3,6 +3,10 @@ version: 2
 models:
   - name: stg_jaffle_shop__orders
     description: This model cleans up order data
+    loaded_at_field: createdDate
+    freshness:
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
     columns:
       - name: order_id
         description: Primary key
@@ -10,12 +14,14 @@ models:
         - unique
         - not_null
       - name: status
-        tests:
+        data_tests:
           - accepted_values:
-              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+              arguments:
+                values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
       - name: customer_id
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_jaffle_shop__customers')
-              field: customer_id
+              arguments:
+                to: ref('stg_jaffle_shop__customers')
+                field: customer_id
