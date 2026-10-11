@@ -6,7 +6,7 @@ on:
       - main
   workflow_dispatch:
 
-# One run at a time: every run rewrites the same dev schema
+# One run at a time: every run rewrites the same ci schema
 concurrency:
   group: dbt-ci
   cancel-in-progress: false
@@ -46,4 +46,4 @@ jobs:
       - name: dbt build
         run: |
           . venv/bin/activate
-          dbt build
+          dbt build --target ci # writes to the ci schema, dev stays untouched
