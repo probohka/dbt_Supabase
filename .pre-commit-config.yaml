@@ -29,3 +29,45 @@ repos:
     hooks:
       - id: sqlfmt
         files: ^(models|analyses|tests)/.*.sql$
+
+  # dbt-checkpoint is installed in dbt_venv with --no-deps (pre-commit cannot
+  # build its mixpanel/pydantic dependencies on Python 3.14), so hooks are local.
+  # Run pre-commit with dbt_venv activated.
+  - repo: local
+    hooks:
+      - id: check-model-has-description
+        name: check if all models have file description
+        entry: check-model-has-description
+        language: system
+        types_or: [yaml, sql]
+        require_serial: true
+
+      - id: check-model-has-tests-not-null
+        name: check if all models have not_null tests
+        entry: check-model-has-tests-by-group
+        language: system
+        types_or: [sql, yaml]
+        args: ["--tests", "not_null", "--test-cnt", "1", "--"]
+
+      - id: check-model-has-tests-unique
+        name: check if all models have unique tests
+        entry: check-model-has-tests-by-group
+        language: system
+        types_or: [sql, yaml]
+        args:
+          [
+            "--tests",
+            "unique",
+            "unique_combination_of_columns",
+            "--test-cnt",
+            "1",
+            "--",
+          ]
+
+      - id: check-macro-has-description
+        name: check if all macros have file description
+        entry: check-macro-has-description
+        language: system
+        types_or: [yaml, sql]
+        require_serial: true
+        files: ^(macros/).*$
