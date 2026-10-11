@@ -32,7 +32,35 @@ jobs:
           . venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
+          # dbt-checkpoint hooks are local (see .pre-commit-config.yaml): install it without
+          # deps because mixpanel pins pydantic<2.12, which has no wheel for Python 3.14
+          pip install --no-deps "git+https://github.com/dbt-checkpoint/dbt-checkpoint@v2.0.4"
+          pip install --no-deps mixpanel
+          pip install httpx asgiref json-logic==0.7.0a0
           pre-commit install --install-hooks
+
+      # dbt-checkpoint reads target/manifest.json; parsing needs no DB connection, so a dummy profile is enough
+      - name: Generate dbt manifest
+        run: |
+          . venv/bin/activate
+          mkdir -p "$RUNNER_TEMP/dbt"
+          cat > "$RUNNER_TEMP/dbt/profiles.yml" <<'EOF'
+          dbtsupb:
+            target: dev
+            outputs:
+              dev:
+                type: postgres
+                host: localhost
+                user: dummy
+                password: dummy
+                port: 5432
+                dbname: dummy
+                schema: dev
+                threads: 1
+          EOF
+          export DBT_PROFILES_DIR="$RUNNER_TEMP/dbt"
+          dbt deps
+          dbt parse
 
       # Fetch the main branch to ensure it's available for comparison
       - name: Fetch main branch
