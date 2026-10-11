@@ -1,4 +1,5 @@
 dbtsupb:
+  target: dev
   outputs:
     dev:
       type: postgres
@@ -7,7 +8,15 @@ dbtsupb:
       dbname: '{{env_var("DBT_DBNAME")}}'
       user: '{{env_var("DBT_USER")}}'
       pass: '{{env_var("DBT_PASS")}}'
-      schema: '{{env_var("DBT_SCHEMA", "dev")}}'
+      schema: dev
       threads: 4
 
-  target: dev
+    ci:
+      type: postgres
+      host: '{{env_var("DBT_HOST")}}'
+      port: 5432
+      dbname: '{{env_var("DBT_DBNAME")}}'
+      user: '{{env_var("DBT_USER")}}'
+      pass: '{{env_var("DBT_PASS")}}'
+      schema: ci
+      threads: 4
