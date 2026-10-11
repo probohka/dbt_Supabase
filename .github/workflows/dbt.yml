@@ -1,0 +1,49 @@
+name: Run dbt
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+# One run at a time: every run rewrites the same dev schema
+concurrency:
+  group: dbt-ci
+  cancel-in-progress: false
+
+jobs:
+  dbt:
+    runs-on: ubuntu-latest
+
+    env:
+      DBT_PROFILES_DIR: ${{ github.workspace }}
+      DBT_HOST: ${{ secrets.DBT_HOST }}
+      DBT_DBNAME: ${{ secrets.DBT_DBNAME }}
+      DBT_USER: ${{ secrets.DBT_USER }}
+      DBT_PASS: ${{ secrets.DBT_PASS }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.14
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          . venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: dbt deps
+        run: |
+          . venv/bin/activate
+          dbt deps
+
+      - name: dbt build
+        run: |
+          . venv/bin/activate
+          dbt build
