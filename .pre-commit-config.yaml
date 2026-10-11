@@ -41,12 +41,14 @@ repos:
         language: system
         types_or: [yaml, sql]
         require_serial: true
+        files: ^models/
 
       - id: check-model-has-tests-not-null
         name: check if all models have not_null tests
         entry: check-model-has-tests-by-group
         language: system
         types_or: [sql, yaml]
+        files: ^models/
         args: ["--tests", "not_null", "--test-cnt", "1", "--"]
 
       - id: check-model-has-tests-unique
@@ -54,6 +56,7 @@ repos:
         entry: check-model-has-tests-by-group
         language: system
         types_or: [sql, yaml]
+        files: ^models/
         args:
           [
             "--tests",
