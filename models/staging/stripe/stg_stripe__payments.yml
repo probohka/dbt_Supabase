@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_stripe_payment
+  - name: stg_stripe__payments
     description: Stripe payments
     columns:
       - name: payment_id
