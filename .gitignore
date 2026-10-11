@@ -19,6 +19,8 @@ logs/
 .env
 .env.*
 profiles.yml
+# the project-root profile only reads env_var(...), no real credentials: CI needs it
+!/profiles.yml
 
 # IDE / OS
 .vscode/
