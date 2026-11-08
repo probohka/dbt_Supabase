@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">dbt + Supabase data pipeline</title>
+  <desc id="desc">Excalidraw diagram: jaffle_shop customers and orders and Stripe payment sources feed three staging views. Customers and orders feed dim_customers; orders and payments feed fct_orders. GitHub Actions installs dependencies and runs dbt build against the ci schema.</desc>
+  <defs><marker id="arrow" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="10" markerHeight="9" orient="auto-start-reverse"><path d="M 1 1 L 10 5 L 1 9" fill="none" stroke="#495057" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+  <rect width="1200" height="900" fill="#ffffff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1e1e1e">
+    <text x="40" y="57" font-size="32" fill="#1e1e1e">dbt + Supabase | Data pipeline</text>
+    <text x="40" y="95" font-size="20" fill="#495057">PostgreSQL sources → staging views → analytical views</text>
+    <text x="40" y="179" font-size="24" fill="#2563eb">01  SOURCES</text>
+    <text x="420" y="179" font-size="24" fill="#6d28d9">02  STAGING</text>
+    <text x="880" y="179" font-size="24" fill="#15803d">03  MARTS</text>
+    <rect x="40" y="230" width="270" height="90" rx="14" fill="#a5d8ff" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="175" y="282" text-anchor="middle" font-size="20">jaffle_shop.customers</text>
+    <polyline points="310,275 410,275" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <rect x="420" y="230" width="340" height="90" rx="14" fill="#d0bfff" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="590" y="282" text-anchor="middle" font-size="20">stg_jaffle_shop__customers</text>
+    <polyline points="760,275 810,275 810,330 870,330" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <rect x="880" y="280" width="280" height="100" rx="14" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="1020" y="324.5" text-anchor="middle" font-size="20">dim_customers</text>
+    <text x="1020" y="349.5" text-anchor="middle" font-size="20">Customer order statistics</text>
+    <rect x="40" y="385" width="270" height="90" rx="14" fill="#a5d8ff" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="175" y="437" text-anchor="middle" font-size="20">jaffle_shop.orders</text>
+    <polyline points="310,430 410,430" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <rect x="420" y="385" width="340" height="90" rx="14" fill="#d0bfff" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="590" y="437" text-anchor="middle" font-size="20">stg_jaffle_shop__orders</text>
+    <polyline points="760,415 830,415 830,355 870,355" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <polyline points="760,450 830,450 830,515 870,515" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <rect x="880" y="490" width="280" height="100" rx="14" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="1020" y="534.5" text-anchor="middle" font-size="20">fct_orders</text>
+    <text x="1020" y="559.5" text-anchor="middle" font-size="20">Successful payment totals</text>
+    <rect x="40" y="540" width="270" height="90" rx="14" fill="#a5d8ff" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="175" y="592" text-anchor="middle" font-size="20">stripe.payment</text>
+    <polyline points="310,585 410,585" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <rect x="420" y="540" width="340" height="90" rx="14" fill="#d0bfff" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="590" y="592" text-anchor="middle" font-size="20">stg_stripe__payments</text>
+    <polyline points="760,585 810,585 810,565 870,565" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <text x="40" y="682" font-size="20" fill="#495057">Supabase / PostgreSQL · database: postgres · targets: dev / ci</text>
+    <rect x="25" y="718" width="1150" height="155" rx="14" fill="#fff3bf" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="45" y="755" font-size="22" fill="#1e1e1e">GITHUB ACTIONS · pull request → main / manual run</text>
+    <rect x="45" y="785" width="235" height="65" rx="14" fill="#ffd8a8" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="162.5" y="824.5" text-anchor="middle" font-size="20">Python 3.14 + pip</text>
+    <polyline points="280,817 320,817" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <rect x="330" y="785" width="180" height="65" rx="14" fill="#d0bfff" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="420" y="824.5" text-anchor="middle" font-size="20">dbt deps</text>
+    <polyline points="510,817 550,817" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <rect x="560" y="785" width="300" height="65" rx="14" fill="#d0bfff" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="710" y="824.5" text-anchor="middle" font-size="20">dbt build --target ci</text>
+    <polyline points="860,817 900,817" fill="none" stroke="#495057" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+    <rect x="910" y="785" width="245" height="65" rx="14" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+    <text x="1032.5" y="824.5" text-anchor="middle" font-size="20">Views + data tests</text>
+  </g>
+</svg>
